@@ -19,8 +19,6 @@ class User(Base):
 class Planets(Base):
     __tablename__ ='planet'
     id = Column(Integer,primary_key = True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user= relationship(User)
     name = Column(String(30),nullable = False)
     terrain = Column(String(40),nullable = False)
     gravity = Column(String(110),nullable =False)
@@ -28,8 +26,6 @@ class Planets(Base):
 class Chararacters(Base):
     __tablename__ = 'characters'
     id = Column(Integer,primary_key = True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user= relationship(User)
     name = Column(String(30),nullable = False)
     hair_color = Column(String(40),nullable = False)
     birth_year = Column(String(110),nullable =False)
@@ -39,9 +35,12 @@ class Chararacters(Base):
 class Favorites(Base):
     __tablename__='favorites'
     id = Column(Integer,primary_key = True)
+    user_id = Column(Integer, ForeignKey('user.id'))
     planets_id = Column(Integer, ForeignKey('planet.id'))
     chararacters_id = Column(Integer, ForeignKey('characters.id'))
-    
+    chararacters= relationship(Chararacters)
+    planets= relationship(Planets)
+    user =relationship(User)
 
 class Person(Base):
     __tablename__ = 'person'
